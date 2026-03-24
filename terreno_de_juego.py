@@ -158,6 +158,34 @@ class Tablero:
     def __repr__(self) -> str:
         return f"Tablero({self.filas}x{self.columnas})"
 
+    # ------------------------------------------------------------------
+    # Posiciones de inicio fijas
+    # Coloca al Gato en la esquina interior superior-izquierda (1,1) y
+    # al Ratón en la esquina interior inferior-derecha (filas-2, cols-2).
+    # Limpia las celdas previas de ambos actores antes de reubicarlos.
+    # ------------------------------------------------------------------
+
+    def establecer_posiciones_inicio(self) -> None:
+        """Fija las posiciones de inicio canónicas de Gato y Ratón.
+
+        - Gato  → esquina interior superior-izquierda (fila 1, col 1)
+        - Ratón → esquina interior inferior-derecha   (fila filas-2, col columnas-2)
+
+        Si alguno de los dos actores ya estaba colocado en el tablero,
+        su celda anterior se deja vacía antes de moverlo.
+        """
+        # Limpiar posiciones anteriores del gato y el ratón (si existen)
+        for f in range(self.filas):
+            for c in range(self.columnas):
+                if self.cuadricula[f][c] in (GATO, RATON):
+                    self.cuadricula[f][c] = VACIO
+
+        # Esquina interior superior-izquierda → Gato
+        self.cuadricula[1][1] = GATO
+
+        # Esquina interior inferior-derecha → Ratón
+        self.cuadricula[self.filas - 2][self.columnas - 2] = RATON
+
 
 # ----------------------------------------------------------------------
 # Demo
