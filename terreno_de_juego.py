@@ -1,19 +1,21 @@
 
+import random       # ---> Se va usar para los movimientos al azar(Bloque3)
 
+### << === >> DEFINIR TERRENO DE JUEGO << === >> ###
 ## ==== Bloque1: Generacion de tablero de juego ===== ##
 
 # Simbolos utilizados en el juego
 VACIO = "."
-GATO = "G"
-RATON = "R"
+GATO = "🐱"
+RATON = "🐭"
 
 # Creacion del terreno de juego, == matrix 5x5 ==
 def crear_terreno():
     terreno = []     # Creacion de lista vacia
-    for fila in range(5):    
-        terreno.append([VACIO] * 5)  # Lista de lista con 5 puntos
+    for fila in range(4):    
+        terreno.append([VACIO] * 4)  # Lista de lista con 5 puntos
     terreno[0][0] = GATO        # Posicion del gato en esquina superior izq
-    terreno[4][4] = RATON       # Posiion raton esquina inferior derecha
+    terreno[3][3] = RATON       # Posiion raton esquina inferior derecha
     return terreno
 
 # Mostrar matriz en la pantalla
@@ -51,3 +53,25 @@ def mover_personaje(terreno, fila_actual, col_actual, direccion):
     else:
         print("¡Movimiento fuera de los límites!")
         return fila_actual, col_actual
+    
+### << === >> SIMULACION DE MOVIMIENTO << === >> ###
+## ==== Bloque3: movimento al azar del raton ==== ##
+
+# Creamos el terreno, que ya esta creada las lineas 27 y 28
+
+# Definimos las variables del ratón
+# En la funcion crear_terreno se ubico al raton en la posicion [3][3] = RATON, empezamos ahí:
+raton_f = 3
+raton_c = 3
+
+# Definimos las opciones de movimiento
+opciones_direcciones = ["arriba", "abajo", "izquierda", "derecha"]
+
+# Se usa la funcion random.choice, que usa una lista(opciones_direcciones) para elegir los elementos de la lista al azar
+direccion_azar = random.choice(opciones_direcciones)
+
+# Reutilizamos la funcion mover_personaje(Bloque2), y guardamos la posicion que nos devuelva la funcion
+raton_f, raton_c = mover_personaje(terreno, raton_f, raton_c, direccion_azar)
+
+# Mostramos el resultado en la terminal
+mostrar_terreno(terreno)
