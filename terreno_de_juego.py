@@ -1,6 +1,6 @@
 
 
-## ==== Bloque de generacion de tablero de juego ===== ##
+## ==== Bloque1: Generacion de tablero de juego ===== ##
 
 # Simbolos utilizados en el juego
 VACIO = "."
@@ -24,3 +24,30 @@ def mostrar_terreno(terreno):
 # Programa principal
 terreno = crear_terreno()
 mostrar_terreno(terreno)
+
+## ====== Bloque2: Movimiento de personajes ====== ##
+
+# Función para mover un personaje (G o R)
+def mover_personaje(terreno, fila_actual, col_actual, direccion):
+    # Definimos cuánto sumar/restar según la dirección
+    movimientos = {
+        "arriba": (-1, 0),
+        "abajo": (1, 0),
+        "izquierda": (0, -1),
+        "derecha": (0, 1)
+    }
+    
+    # Obtenemos el cambio de posición
+    df, dc = movimientos[direccion]
+    nueva_f = fila_actual + df
+    nueva_c = col_actual + dc
+    
+    # Verificamos que el movimiento esté dentro de los límites (0 a 4)
+    if 0 <= nueva_f < 5 and 0 <= nueva_c < 5:
+        personaje = terreno[fila_actual][col_actual]
+        terreno[fila_actual][col_actual] = VACIO # Deja el rastro vacío
+        terreno[nueva_f][nueva_c] = personaje    # Se coloca en la nueva celda
+        return nueva_f, nueva_c # Devolvemos la nueva posición para actualizar variables
+    else:
+        print("¡Movimiento fuera de los límites!")
+        return fila_actual, col_actual
