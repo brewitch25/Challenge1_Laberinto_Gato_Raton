@@ -11,7 +11,10 @@ En el segundo bloque se creo una funcion, llamado mover_personaje, dentro de est
 
 ### << === >> SIMULACION DE MOVIMIENTO << === >> ###
 # ------> Bloque3: movimientos al azar del gato y del raton <------- 
-En el tercer bloque se va hacer que el gato y el raton se muevan de forma aleatoria, para eso se va a usar la libreria random, en esta porcion de bloque se va usar la funcion random.choice, porque elige los elementos de una lista aleatoriamente, tambien se vuelve a llamar a la funcion mover_personaje, que basicamente hace que se muevan los personajes, usando su posicion ya definida en las filas y las columnas en conjunto con la funcion direccion_azar, que decide aleatoriamente la posicion y finalmente se muestra el resultado del juego en la terminal
+En el tercer bloque se va hacer que el gato y el raton se muevan de forma aleatoria, para eso se va a usar la libreria random, en esta porcion de bloque se va usar la funcion movimientos_al_azar, que que utiliza random.choice, porque elige los elementos de una lista aleatoriamente, el nombre de la lista es opciones_direcciones, dentro de la funcion movimientos_al_azar, ya los dos personajes se mueven de forma aleatoria.
 
 ### << === >> CONDICIONES DE FINALIZACION << === >> ###
-Vamos a hacer primeramente la condicion de finalizacion, de manera sencilla, que termine en 4 turnos, para verificar que todo funciona correctamente, siendo especificos el bloque de movimientos al azar, se construye un bluclo for usan "range" ya que asi se controla la cantidad de turnos, por cada turno se mueve el gato y el raton de forma aleatoria, y tambien en el bucle for se agrego que si el gato el raton estan en la misma posicion(filas y columnas), el gato atrapo al raton y de esa forma, termina el juego
+Vamos a hacer primeramente la condicion de finalizacion, de manera sencilla, cada personaje va a tener 4 turnos disponible para hacer un movimiento, decidi utilizar el bucle for, especificamente "range", de 1 al 9, utilice el operador matematico % (modulus), para definir de esta forma el turno del gato y del raton, que va de la siguiente forma:
+  => Turno del raton impar: % de los numeros impares que estan dentro del rango 1 al 9
+  => Turno del gato par: % de los numeros pares que estan dentro del rango del 1 al 9
+Se utilizo tambien el tipo de dato, boolean, para saber si el raton fue atrapado, y de esta forma poder saber si el juego termino antes de los 8 turnos
