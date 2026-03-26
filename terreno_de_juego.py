@@ -9,13 +9,13 @@ VACIO = "."
 GATO = "🐱"
 RATON = "🐭"
 
-# Creacion del terreno de juego, == matrix 5x5 ==
+# Creacion del terreno de juego, == matriz 5x5 ==
 def crear_terreno():
-    terreno = []     # Creacion de lista vacia
-    for fila in range(4):    
-        terreno.append([VACIO] * 4)  # Lista de lista con 5 puntos
-    terreno[0][0] = GATO        # Posicion del gato en esquina superior izq
-    terreno[3][3] = RATON       # Posiion raton esquina inferior derecha
+    terreno = []                      # Creacion de lista vacia
+    for fila in range(5):    
+        terreno.append([VACIO] * 5)  # Lista de lista con 5 puntos
+    terreno[1][1] = GATO             # Posicion gato en la posicion superior izq
+    terreno[3][3] = RATON            # Posicion raton en la posicion inferior derecha
     return terreno
 
 # Mostrar matriz en la pantalla
@@ -44,12 +44,12 @@ def mover_personaje(terreno, fila_actual, col_actual, direccion):
     nueva_f = fila_actual + df
     nueva_c = col_actual + dc
     
-    # Verificamos que el movimiento esté dentro de los límites (0 a 3)
-    if 0 <= nueva_f < 4 and 0 <= nueva_c < 4:
+    # Verificamos que el movimiento esté dentro de los límites (0 a 5)
+    if 0 <= nueva_f < 5 and 0 <= nueva_c < 5:
         personaje = terreno[fila_actual][col_actual]
-        terreno[fila_actual][col_actual] = VACIO # Deja el rastro vacío
-        terreno[nueva_f][nueva_c] = personaje    # Se coloca en la nueva celda
-        return nueva_f, nueva_c # Devolvemos la nueva posición para actualizar variables
+        terreno[fila_actual][col_actual] = VACIO    # Deja el rastro vacío
+        terreno[nueva_f][nueva_c] = personaje       # Se coloca en la nueva celda
+        return nueva_f, nueva_c                     # Devolvemos la nueva posición para actualizar variables
     else:
         print("¡Movimiento fuera de los límites!")
         return fila_actual, col_actual
@@ -57,36 +57,56 @@ def mover_personaje(terreno, fila_actual, col_actual, direccion):
 ### << === >> SIMULACION DE MOVIMIENTO << === >> ###
 ## ==== Bloque3: movimento al azar del raton ==== ##
 
-# Utlizamos el terreno, que ya esta creada las lineas 27
+# Utlizamos el terreno, que ya esta creado en el bloque1
 
-# Definimos las variables del ratón
-# En la funcion crear_terreno se ubico al raton en la posicion [3][3] = RATON, empezamos ahí:
-raton_f = 3
-raton_c = 3
+# Definimos las variables del ratón y del gato
+# Definimos la posicion del raton
+raton_fila = 3
+raton_columna = 3
+# Definimos la posicion del gato
+gato_fila = 1
+gato_columna = 1
 
 # Definimos las opciones de movimiento
 opciones_direcciones = ["arriba", "abajo", "izquierda", "derecha"]
 
-# Se usa la funcion random.choice, que usa una lista(opciones_direcciones) para elegir los elementos de la lista al azar
-direccion_azar = random.choice(opciones_direcciones)
-
-# Reutilizamos la funcion mover_personaje(Bloque2), y guardamos la posicion que nos devuelva la funcion
-raton_f, raton_c = mover_personaje(terreno, raton_f, raton_c, direccion_azar)
-
-# Mostramos el resultado en la terminal
-# mostrar_terreno(terreno)
+# Funcion que hace que los personajes se muevan al azar 
+def movimientos_al_azar(personaje_f, personaje_c):
+    # El raton se mueve aleatoriamente
+    dir_personaje = random.choice(opciones_direcciones)
+    nuevo_personaje_f, nuevo_personaje_c = mover_personaje(terreno, personaje_f, personaje_c, dir_personaje)
 
 
-### << === >> CONDICIONES DE FINALIZACION << === >> ###
-# Utilizando ya las variables definidad arriba, que son las posiciones, raton_f, raton_c, y la 
-# lista de opciones_direcciones, se crea el bucle for para los turnos (4 turnos), inicialmente
-for turno in range(4):
-    print(f"Turno n°: {turno + 1}")         # Saber el turno
-    direccion_azar = random.choice(opciones_direcciones)        # Se selecciona direccion al aza
-    raton_f, raton_c = mover_personaje(terreno, raton_f, raton_c, direccion_azar)   # Movemos el personaje
-    mostrar_terreno(terreno)                # ver como quedo el tablero en este turno
+    return nuevo_personaje_f, nuevo_personaje_c
 
-# En el caso que el raton escapo despues de 4 turnos
-print("El raton ha escapado despues de 4 turnos!")
+# << ==== >> Aca empezamos a jugar y aplicamos las condiciones de finalizacion << ==== >>
+
+# Variable para saber si el raton fue atrapado
+atrapado = False
+# Creamos el bucle en rango 1 al 9, 4 turnos para cada personaje
+for turno in range(1, 9):  
+    print(f"Turno nº: {turno}")
+
+    # Turno del raton (impares):
+    if turno % 2 != 0:
+        print(f"Turno del 🐭")
+        raton_fila, raton_columna = movimientos_al_azar(raton_fila, raton_columna)
+
+    else:
+        print(f"Turno del 🐱")
+        gato_fila, gato_columna = movimientos_al_azar(gato_fila, gato_columna)
+    # Mostramos el tablero despues de cada movimiento
+    mostrar_terreno(terreno)
+
+    # Vemos si el gato y el raton estan en la misma posicion
+    if raton_fila == gato_fila and raton_columna == gato_columna:
+        print("El gato atrapo al raton!")
+        atrapado = True
+        break
+
+# Si el gato no atrapo al raton en los 4 turnos
+if not atrapado:
+    print("El raton logro escapar! Termino el juego!")
+
 
 
