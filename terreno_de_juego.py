@@ -25,7 +25,7 @@ def mostrar_terreno(terreno):
 
 # Programa principal
 terreno = crear_terreno()
-mostrar_terreno(terreno)
+# mostrar_terreno(terreno)
 
 ## ====== Bloque2: Movimiento de personajes ====== ##
 
@@ -44,8 +44,8 @@ def mover_personaje(terreno, fila_actual, col_actual, direccion):
     nueva_f = fila_actual + df
     nueva_c = col_actual + dc
     
-    # Verificamos que el movimiento esté dentro de los límites (0 a 4)
-    if 0 <= nueva_f < 5 and 0 <= nueva_c < 5:
+    # Verificamos que el movimiento esté dentro de los límites (0 a 3)
+    if 0 <= nueva_f < 4 and 0 <= nueva_c < 4:
         personaje = terreno[fila_actual][col_actual]
         terreno[fila_actual][col_actual] = VACIO # Deja el rastro vacío
         terreno[nueva_f][nueva_c] = personaje    # Se coloca en la nueva celda
@@ -57,7 +57,7 @@ def mover_personaje(terreno, fila_actual, col_actual, direccion):
 ### << === >> SIMULACION DE MOVIMIENTO << === >> ###
 ## ==== Bloque3: movimento al azar del raton ==== ##
 
-# Creamos el terreno, que ya esta creada las lineas 27 y 28
+# Utlizamos el terreno, que ya esta creada las lineas 27
 
 # Definimos las variables del ratón
 # En la funcion crear_terreno se ubico al raton en la posicion [3][3] = RATON, empezamos ahí:
@@ -74,4 +74,19 @@ direccion_azar = random.choice(opciones_direcciones)
 raton_f, raton_c = mover_personaje(terreno, raton_f, raton_c, direccion_azar)
 
 # Mostramos el resultado en la terminal
-mostrar_terreno(terreno)
+# mostrar_terreno(terreno)
+
+
+### << === >> CONDICIONES DE FINALIZACION << === >> ###
+# Utilizando ya las variables definidad arriba, que son las posiciones, raton_f, raton_c, y la 
+# lista de opciones_direcciones, se crea el bucle for para los turnos (4 turnos), inicialmente
+for turno in range(4):
+    print(f"Turno n°: {turno + 1}")         # Saber el turno
+    direccion_azar = random.choice(opciones_direcciones)        # Se selecciona direccion al aza
+    raton_f, raton_c = mover_personaje(terreno, raton_f, raton_c, direccion_azar)   # Movemos el personaje
+    mostrar_terreno(terreno)                # ver como quedo el tablero en este turno
+
+# En el caso que el raton escapo despues de 4 turnos
+print("El raton ha escapado despues de 4 turnos!")
+
+
