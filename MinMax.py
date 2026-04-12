@@ -23,16 +23,10 @@ def gato_gana(estado_actual):
 # El juego termina si el gato atrapo al raton 
 def termino_juego(estado_actual):
     return gato_gana(estado_actual)
-# DEVUELVE UN BOOLEAN
+    # DEVUELVE UN BOOLEAN
 
-# Evaluamos quien gano (+1 -> raton, -1 -> gato)
-def ganador_o_perdedor(estado_actual):
-    if gato_gana(estado_actual):
-        return - 1       # GANO GATO
-    else:
-        return  1        # GANA RATON
 
-# Funcion que retornar el estado despues de mover el raton (no modific el esrado actual) 
+# Funcion que retornar el estado despues de mover el raton (no modifica el estado actual) 
 # Que recibe (estado_actual y direccion) => Que devuelve (la nuevo estado del raton en el tablero)
 # Direccion: una de las 4 opciones (arriba, abajo, izquierda, derecha)
 def mover_raton(estado_actual, direccion):
@@ -61,10 +55,9 @@ def calcular_distancia(estado_actual):
     return distancia_filas + distancia_columnas
     
 
-
 # << ===== >> Funcion minmax << ===== >>
 def min_max(estado_actual, profundidad_actual, turno_max):
-    # -- Caso base - Cuando termina el juego -- 
+    # -- Caso base - Cuando termina el juego -- #c
     if profundidad_actual == 0 or termino_juego(estado_actual):
         return calcular_distancia(estado_actual)
 
