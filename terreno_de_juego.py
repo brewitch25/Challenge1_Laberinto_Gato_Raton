@@ -8,8 +8,8 @@ import copy         # ---> Se usa en el bloque de minimax
 VACIO = "🌾"
 GATO = "🐱"
 RATON = "🐭"
-CANTIDAD_DE_FILAS = 3
-CANTIDAD_DE_COLUMNAS = 3
+CANTIDAD_DE_FILAS = 5
+CANTIDAD_DE_COLUMNAS = 5
 
 # Creacion del terreno de juego, == matriz 5x5 ==
 def crear_terreno():
