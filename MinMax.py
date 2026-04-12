@@ -85,9 +85,8 @@ estado_de_juego = copy.deepcopy(estado_inicial)
 print("Terreno inicial")
 mostrar_terreno(estado_de_juego["terreno"])        
 
-for turno in range(1, 15):           # => Rango de 1 a 9, 4 turnos para cada personaje
+for turno in range(1, 11):           # 10 turnos total, 5 turnos para cada personaje
     print(f"Turno nº:{turno}")
-    # = (profundidad - turno + 1) % profundidad
 
     # Turno del maximizador(RATON)
     if turno % 2 != 0:
@@ -128,3 +127,4 @@ for turno in range(1, 15):           # => Rango de 1 a 9, 4 turnos para cada per
 
 # Mostramos el tablero despues de cada movimiento
     mostrar_terreno(estado_de_juego["terreno"])       
+    
